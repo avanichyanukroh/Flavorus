@@ -1,0 +1,42 @@
+font-family: 'Source Sans Pro', sans-serif;
+
+html {
+
+	height: 100%;
+}
+
+body {
+
+	background: linear-gradient(#1D3E67, #336EB6);
+	margin: 0;
+	height: 1000px;
+
+}
+
+header {
+
+	background-color: #183d58;
+	text-align: center;
+	color: white;
+	border: 1px solid black;
+	border-radius: 5px;
+	opacity: 1;
+	box-shadow: 2px 2px 2px black;
+}
+
+main {
+
+	background-color: #0067E5;
+	opacity: 1;
+	color: white;
+	border: 1px solid black;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px black;
+	margin-top: 100px;
+
+}
+
+h2, form {
+
+	text-align: center;
+}

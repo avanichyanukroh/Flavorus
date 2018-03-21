@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    	<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>NuMu</title>
+        <script
+         	src="https://code.jquery.com/jquery-3.2.1.min.js"
+         	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+         	crossorigin="anonymous"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+        <link href="index.css" rel="stylesheet" type="text/css" />
+        <link href="float-grid.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+    	<header class="col-12">
+    		<h1>NuMu</h1>
+    	</header>
+    	<main role="main" class="row">
+        	<h2>Search your favorite movie</h2>
+        	<form action="#" class="js-search-form">
+            	<label for="js-query" aria-label="user input to search for their favorite movie"></label>
+            	<input type="text" id="js-query">
+            	<button role="button" type="submit">Search</button>
+          </form>
+          
+          <h2>Results</h2>
+          <div class="js-search-results" aria-live="assertive">
+          
+            
+          </div>
+      </main>
+      <script src="index.js"></script>
+    </body>
+</html>
