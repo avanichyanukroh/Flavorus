@@ -1,39 +1,52 @@
-font-family: 'Source Sans Pro', sans-serif;
+
 
 html {
 
 	height: 100%;
+	font-family: 'Open Sans', sans-serif;
 }
 
 body {
 
-	background: linear-gradient(#1D3E67, #336EB6);
-	margin: 0;
+	background-color: #000000;
+background-image: url("https://www.transparenttextures.com/patterns/office.png");
 	height: 1000px;
 
 }
 
 header {
 
-	background-color: #183d58;
+	background: linear-gradient(#000186,#000140);
 	text-align: center;
 	color: white;
 	border: 1px solid black;
 	border-radius: 5px;
-	opacity: 1;
 	box-shadow: 2px 2px 2px black;
+}
+
+h1 {
+	font-size: 50px;
+	color: #F5F5F5;
+	font-family: 'Bangers', cursive;
+	text-transform: uppercase;
+	text-shadow: 2px 2px #ff0000;
 }
 
 main {
 
-	background-color: #0067E5;
-	opacity: 1;
+	background: linear-gradient(#0000AB, #000029);
 	color: white;
 	border: 1px solid black;
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px black;
 	margin-top: 100px;
+	height: 1000px;
 
+}
+
+.search-container {
+
+	margin-top: 200px;
 }
 
 h2, form {
