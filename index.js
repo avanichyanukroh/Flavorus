@@ -100,6 +100,9 @@ function displayTmdbSearchData(data) {
     renderResultTMDB(item);
     }
   })
+
+  console.log(results);
+  
   $('.js-search-results').append(results);
 
 }
