@@ -4,7 +4,7 @@ const TMDB_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=bd392
 
 //Global variables
 let TMDBQueryList;
-let exactMovieTitleList = [];
+let exactMovieTitleList = [{title: "fire"}, {title: "ice"}];
 
 //watch submit event to send user input to Taste Dive Api
 function watchSubmit() {
@@ -54,17 +54,52 @@ function queryToTMDBApi(data) {
 
     }
 
-    console.log(exactMovieTitleList);
+console.log(exactMovieTitleList);
+console.log(exactMovieTitleList[2]);
+
+/*
+sort = function( a, b ) {
+
+      let a = a.point_value;
+      let b = b.point_value;
+
+        return(
+            a > b ? 1 :
+            a < b ? -1 :
+            0
+        );
+    };
 
     //sorts the exactMovieTitleList by point_value from largest to smallest *****ATTENTION, NOT SORTING PROPERLY*****
-    exactMovieTitleList.sort(function (a, b) {
+    console.log(exactMovieTitleList.sort(sort));
 
-      return b.point_value - a.point_value;
-
-    });
 
     console.log(exactMovieTitleList);
+*/
 
+renderAssortedMovieList(exactMovieTitleList);
+
+}
+
+
+function renderAssortedMovieList(results) {
+
+  console.log(exactMovieTitleList[0]);
+  console.log(results.length);
+  for (let i = 0; i < results.length; i ++) {
+
+  $(".js-search-results").append(
+    `
+    <div class=movieContainer>
+    <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].title}" class="poster">
+    <h3>${results[i].title}</h3>
+    <div>${results[i].release_date}</div>
+    <div>${results[i].vote_average}</div>
+    <p>${results[i].overview}</p>
+    </div>
+    `
+    );
+  }
 }
 
 //---------------------------------------------------------------------------------------------------------
@@ -73,13 +108,13 @@ function getDataFromTMDBApi(searchTerm, callback) {
   
   const settings = {
     url: TMDB_SEARCH_URL + "&language=en-US" + "&page=1" + "&include_adult=false" + "&query=" + searchTerm,
-     "async": true,
-  "crossDomain": true,
-  "method": "GET",
-  "headers": {},
-  "data": "{}",
-  success: callback
-  };
+    "async": true,
+    "crossDomain": true,
+    "method": "GET",
+    "headers": {},
+    "data": "{}",
+    success: callback
+    };
 
   $.ajax(settings).done(function (response) {
   //console.log(response);
@@ -99,11 +134,12 @@ function filterOnlyExactTitle(data) {
               title: data.results[k].title,
               poster_path: data.results[k].poster_path,
               release_date: data.results[k].release_date,
-              vote_average: data.results[k].vote_average,
+              vote_average: data.results[k].vote_average * 10,
               popularity: data.results[k].popularity,
-              point_value: (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2)
-            }
-
+              overview: data.results[k].overview,
+              point_value: ((data.results[k].vote_average + data.results[k].popularity) / 2)
+            };
+            console.log(typeof(exactMovieTitle));
             exactMovieTitleList.push(exactMovieTitle);
       }
     }
