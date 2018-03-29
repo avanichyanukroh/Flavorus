@@ -1,10 +1,24 @@
-
-//tastedive api search code
+//API Url's
 const TASTEDIVE_SEARCH_URL = 'https://tastedive.com/api/similar?k=303566-Numu-0SMN2P46&info=1';
 const TMDB_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=bd392b20bbcc4afe8b0b8e5db2dc7e99';
 
-let movieNames;
+//Global variables
+let TMDBQueryList;
+let exactMovieTitleList = [];
 
+//watch submit event to send user input to Taste Dive Api
+function watchSubmit() {
+  $('.js-search-form').submit(function(event) {
+      event.preventDefault();
+      const userInput = $(this).find('#js-query');
+      const query =  userInput.val();
+      userInput.val("");
+      getDataFromTasteDiveApi(query, queryToTMDBApi);
+      });
+}
+
+
+//tastedive api search code
 function getDataFromTasteDiveApi(searchTerm, callback) {
   
   const settings = {
@@ -15,53 +29,46 @@ function getDataFromTasteDiveApi(searchTerm, callback) {
   };
 
   $.ajax(settings).done(function (response) {
-  console.log(response);
+  //console.log(response);
   });
 }
 
-function renderResultTasteDive(result) {
-  /*return `
-    <div>
-      <h3>${result.Name}</h3>
-      <p>
-      Teaser: ${result.wTeaser}<br>
-      Wikipedia: ${result.wUrl}<br>
-      Trailer: ${result.yUrl}
-      <p>
-    </div>
-  `;*/
+
+function queryToTMDBApi(data) {
+
+  let suggestedMoviesNameOnly = [];
+
+  for (let i = 0; i < data.Similar.Results.length; i ++) {
+
+      let suggestedMoviesList = data.Similar.Results[i].Name;
+
+      suggestedMoviesNameOnly.push(suggestedMoviesList);
+    }
+
+    //sent to global variable to use the list of suggested titles later in another function
+    TMDBQueryList = suggestedMoviesNameOnly;
+
+    for (let i = 0; i < suggestedMoviesNameOnly.length; i ++) {
+
+      getDataFromTMDBApi(suggestedMoviesNameOnly[i], filterOnlyExactTitle);
+
+    }
+
+    console.log(exactMovieTitleList);
+
+    //sorts the exactMovieTitleList by point_value from largest to smallest *****ATTENTION, NOT SORTING PROPERLY*****
+    exactMovieTitleList.sort(function (a, b) {
+
+      return b.point_value - a.point_value;
+
+    });
+
+    console.log(exactMovieTitleList);
+
 }
 
-function displayTasteDiveSearchData(data) {
-  const results = data.Similar.Results.map(function(item, index) {
-    movieNames = item.Name;
-    getDataFromTMDBApi(item.Name, displayTmdbSearchData);
-    renderResultTasteDive(item);
-});
-  console.log(data.Similar.Results);
-/*  $('.js-search-results').html(results); */
-}
-
-
-
-
-
-function watchSubmit() {
-  $('.js-search-form').submit(function(event) {
-      event.preventDefault();
-      const userInput = $(this).find('#js-query');
-      const query =  userInput.val();
-      userInput.val("");
-      getDataFromTasteDiveApi(query, displayTasteDiveSearchData);
-      });
-}
-
-
-
-
-
+//---------------------------------------------------------------------------------------------------------
 //TMDB api search code
-
 function getDataFromTMDBApi(searchTerm, callback) {
   
   const settings = {
@@ -75,54 +82,39 @@ function getDataFromTMDBApi(searchTerm, callback) {
   };
 
   $.ajax(settings).done(function (response) {
-  console.log(response);
+  //console.log(response);
   });
 }
 
-function renderResultTMDB(result) {
-  return `
-    <div>
-      <h3>title:${result.title}</h3> <img src="https://image.tmdb.org/t/p/w500${result.poster_path}"
-      <p>
-      release date: ${result.release_date} <br>
-      rating: ${result.vote_average} <br>
-      popularity: ${result.popularity}
-      
-    </div>
-  `;
-}
+//takes the results from the TMDB get request and only keep the ones with exact query title
+function filterOnlyExactTitle(data) {
 
-function displayTmdbSearchData(data) {
-  const results = data.results.map(function(item, index) {
+  for (let k = 0; k < data.results.length; k ++) {
 
-  if (item.title == movieNames) {
+    for (let i = 0; i < TMDBQueryList.length; i ++) {
 
-    renderResultTMDB(item);
+        if (data.results[k].title === TMDBQueryList[i]) {
+
+            let exactMovieTitle = {
+              title: data.results[k].title,
+              poster_path: data.results[k].poster_path,
+              release_date: data.results[k].release_date,
+              vote_average: data.results[k].vote_average,
+              popularity: data.results[k].popularity,
+              point_value: (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2)
+            }
+
+            exactMovieTitleList.push(exactMovieTitle);
+      }
     }
-  })
-
-  console.log(results);
-  
-  $('.js-search-results').append(results);
-
+  }
 }
 
 
 
+$(watchSubmit);
 
-/*
-function watchSubmit() {
-  $('.js-search-form').submit(function(event) {
-      event.preventDefault();
-      const userInput = $(this).find('#js-query');
-      const query =  userInput.val();
-      userInput.val("");
-      getDataFromTMDBApi(query, displayTmdbSearchData);
-      });
+
+var customSort = function(a,b) {
+    return [a.a, a.b] > [b.a, b.b] ? 1:-1;
 }
-
-$(watchSubmit);
-
-*/
-
-$(watchSubmit);
