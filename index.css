@@ -64,5 +64,13 @@ h2, form {
 
 .poster {
 
-	float: left;
+	display: inline-block;
+	height: 400px;
+	width: auto;
+}
+
+.movieContentContainer {
+
+	display: inline-block;
+	
 }
