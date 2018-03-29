@@ -53,3 +53,24 @@ h2, form {
 
 	text-align: center;
 }
+
+.movieContainer {
+
+	border: 1px solid white;
+	border-radius: 5px;
+	margin-bottom: 25px;
+	box-shadow: 5px 5px 5px black;
+}
+
+.poster {
+
+	display: inline-block;
+	height: 400px;
+	width: auto;
+}
+
+.movieContentContainer {
+
+	display: inline-block;
+	
+}
