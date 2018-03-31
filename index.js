@@ -1,11 +1,44 @@
 //API Url's
-const TASTEDIVE_SEARCH_URL = 'https://tastedive.com/api/similar?k=303566-Numu-0SMN2P46&info=1';
-const TMDB_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=bd392b20bbcc4afe8b0b8e5db2dc7e99';
+let TASTEDIVE_SEARCH_URL = 'https://tastedive.com/api/similar?k=303566-Numu-0SMN2P46&info=1&q=movie:';
+let TMDB_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=bd392b20bbcc4afe8b0b8e5db2dc7e99';
 
 //Global variables
 let TMDBQueryList;
 let exactMovieTitleList = [];
 let exactMovieTitleMap = {};
+let userInputFeedback = "movies";
+
+//watch for when Movies tab gets selected to search for only movies.
+function watchMovieToggle() {
+  $('.movie-search-toggle').click(function() {
+    event.preventDefault();
+
+    $(this).css("background", "#F4F4F4");
+    $('.tv-shows-search-toggle').css("background", "lightgray");
+
+    $('#js-query').attr("placeholder", "Search for suggested movies similar to...");
+    userInputFeedback = "movies";
+    TASTEDIVE_SEARCH_URL = 'https://tastedive.com/api/similar?k=303566-Numu-0SMN2P46&info=1&q=movie:';
+    TMDB_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=bd392b20bbcc4afe8b0b8e5db2dc7e99';
+
+  });
+}
+
+//watch for when TV shows tab gets selected to search for only TV shows.
+function watchTvShowsToggle() {
+  $('.tv-shows-search-toggle').click(function() {
+    event.preventDefault();
+
+    $(this).css("background", "#F4F4F4");
+    $('.movie-search-toggle').css("background", "lightgray");
+
+    $('#js-query').attr("placeholder", "Search for suggested tv shows similar to...");
+    userInputFeedback = "tv shows";
+    TASTEDIVE_SEARCH_URL = 'https://tastedive.com/api/similar?k=303566-Numu-0SMN2P46&info=1&q=show:';
+    TMDB_SEARCH_URL = 'https://api.themoviedb.org/3/search/tv?api_key=bd392b20bbcc4afe8b0b8e5db2dc7e99';
+
+  });
+}
 
 //watch submit event to send user input to Taste Dive Api
 function watchSubmit() {
@@ -23,7 +56,7 @@ function watchSubmit() {
 
       $(".suggested-results").html(`
 
-          <h2>Suggested results for "${query}"</h2>
+          <h2 class="userInputFeedback">Suggested ${userInputFeedback} results similar to "${query}"</h2>
 
         `);
 
@@ -32,12 +65,12 @@ function watchSubmit() {
       });
 }
 
-
+//-------------------------------------------------------------------------------------------------------
 //tastedive api ajax request
 function getDataFromTasteDiveApi(searchTerm, callback) {
   
   const settings = {
-    url: TASTEDIVE_SEARCH_URL + "&q=movie:" + searchTerm,
+    url: TASTEDIVE_SEARCH_URL + searchTerm,
     type: 'GET',
     dataType: 'jsonp',
     success: callback
@@ -74,7 +107,7 @@ function queryToTMDBApi(data) {
 
     exactMovieTitleList.sort(function( a , b ) {
 
-      return a.point_value > b.point_value ? -1 : 1;
+      return a.flavorus_rating > b.flavorus_rating ? -1 : 1;
 
     });
 
@@ -93,19 +126,49 @@ function renderAssortedMovieList(results) {
 
   for (let i = 0; i < results.length; i ++) {
 
-  $(".js-search-results").append(
-    `
-    <div class="movieContainer row">
-      <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].title}" class="poster col-3">
-      <div class="movieContentContainer col-9">
-        <h3 class="movieTitle">${results[i].title}</h3>
-        <div class="movieReleaseDate">${results[i].release_date}</div>
-        <div class="movieRating">${results[i].vote_average}</div>
-        <p class="movieOverview">${results[i].overview}</p>
-      </div>
-    </div>
-    `
-    );
+    if (results[i].flavorus_rating > 100) {
+
+        results[i].flavorus_rating = 100
+    };
+
+    if (userInputFeedback == "movies") {
+      $(".js-search-results").append(
+        `
+        <div class="movieContainer row">
+          <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].title}" class="poster col-3">
+          <div class="movieContentContainer col-9">
+            <h3 class="movieTitle">${results[i].title}</h3>
+            <p class="movieReleaseDate">${results[i].release_date}</p>
+
+            <p>${results[i].flavorus_rating}% Flavorus Rating</p>
+            <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
+
+
+            <p class="movieOverview">${results[i].overview}</p>
+          </div>
+        </div>
+        `
+      );
+    }
+    else if (userInputFeedback == "tv shows") {
+            $(".js-search-results").append(
+        `
+        <div class="movieContainer row">
+          <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].name}" class="poster col-3">
+          <div class="movieContentContainer col-9">
+            <h3 class="movieTitle">${results[i].name}</h3>
+            <p class="movieReleaseDate">${results[i].first_air_date}</p>
+
+            <p>${results[i].flavorus_rating}% Flavorus Rating</p>
+            <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
+
+
+            <p class="movieOverview">${results[i].overview}</p>
+          </div>
+        </div>
+        `
+      );
+    }
   }
 }
 
@@ -131,37 +194,83 @@ function getDataFromTMDBApi(searchTerm, callback) {
 //takes the results from the TMDB get request and only keep the ones with exact query title
 function filterOnlyExactTitle(data) {
 
-  for (let k = 0; k < data.results.length; k ++) {
+console.log(userInputFeedback);
+  if (userInputFeedback == "movies") {
 
-    for (let i = 0; i < TMDBQueryList.length; i ++) {
+    for (let k = 0; k < data.results.length; k ++) {
 
-        if (data.results[k].title === TMDBQueryList[i]) {
+      for (let i = 0; i < TMDBQueryList.length; i ++) {
 
-            if (!(data.results[k].title in exactMovieTitleMap)) {
+          if (data.results[k].title === TMDBQueryList[i]) {
+
+              if (!(data.results[k].title in exactMovieTitleMap)) {
 
 
 
-              let exactMovieTitle = {
-                title: data.results[k].title,
-                poster_path: data.results[k].poster_path,
-                release_date: data.results[k].release_date,
-                vote_average: data.results[k].vote_average * 10 + "%",
-                popularity: data.results[k].popularity,
-                overview: data.results[k].overview,
-                point_value: (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2)
+                let exactMovieTitle = {
+                  title: data.results[k].title,
+                  poster_path: data.results[k].poster_path,
+                  release_date: data.results[k].release_date,
+                  vote_average: data.results[k].vote_average * 10,
+                  popularity: data.results[k].popularity,
+                  overview: data.results[k].overview,
+                  flavorus_rating: Math.ceil(((100 - (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2)) * .25) + 
+                                  (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2))
+
+                };
+
+                exactMovieTitleMap[data.results[k].title] = 1;
+
+                exactMovieTitleList.push(exactMovieTitle);
+
               };
-
-              exactMovieTitleMap[data.results[k].title] = 1;
-
-              exactMovieTitleList.push(exactMovieTitle);
-
-            };
+        }
       }
     }
   }
+
+  else if (userInputFeedback == "tv shows") {
+
+    console.log(TMDBQueryList);
+    console.log(data.results);
+
+      for (let k = 0; k < data.results.length; k ++) {
+
+      for (let i = 0; i < TMDBQueryList.length; i ++) {
+
+          if (data.results[k].name === TMDBQueryList[i]) {
+
+              if (!(data.results[k].name in exactMovieTitleMap)) {
+
+
+
+                let exactMovieTitle = {
+                  name: data.results[k].name,
+                  poster_path: data.results[k].poster_path,
+                  first_air_date: data.results[k].first_air_date,
+                  vote_average: data.results[k].vote_average * 10,
+                  popularity: data.results[k].popularity,
+                  overview: data.results[k].overview,
+                  flavorus_rating: Math.ceil(((100 - (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2)) * .25) + 
+                                  (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2))
+
+                };
+
+                exactMovieTitleMap[data.results[k].name] = 1;
+
+                exactMovieTitleList.push(exactMovieTitle);
+
+              };
+        }
+      }
+    }
+  }
+
+  console.log(exactMovieTitleList);
 }
 
 
-
+$(watchMovieToggle);
+$(watchTvShowsToggle);
 $(watchSubmit);
 

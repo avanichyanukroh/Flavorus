@@ -18,24 +18,93 @@ header {
 
 	background: linear-gradient(#000186,#000140);
 	text-align: center;
-	color: white;
+	color: #F4F4F4;
 	border: 1px solid black;
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px black;
 }
 
+.logo-container {
+
+	display: block;
+	border: 5px solid #FFCD00;
+	width: 300px;
+	background: radial-gradient(black,black);
+	margin: 40px auto;
+	border-radius: 20px;
+	box-shadow: 2px 2px 2px black;
+}
+
 h1 {
-	font-size: 50px;
+
+	display: inline-block;
+	font-size: 40px;
 	color: #F5F5F5;
 	font-family: 'Bangers', cursive;
 	text-transform: uppercase;
-	text-shadow: 2px 2px #ff0000;
+}
+
+.search-bar-background {
+
+	height: 50px;
+	width: 100%;
+	background: #F4F4F4;
+	margin: 0;
+	padding: 0;
+}
+
+nav {
+
+	display: inline;
+	color: black;
+	margin-right: 750px;
+	text-align: left;
+	font-size: 20px;
+}
+
+.movie-search-toggle {
+
+	background: #F4F4F4;
+}
+
+.tv-shows-search-toggle {
+
+	background: lightgray;
+}
+
+.movie-search-toggle, .tv-shows-search-toggle {
+
+	border: 3px solid black;
+	border-bottom: none;
+	border-radius: 10px;
+	padding: 10px;
+	text-decoration: none;
+	color: black;
+}
+
+.movie-search-toggle:hover, .tv-shows-search-toggle:hover { 
+    background-color: darkgray;
+}
+
+
+
+#js-query {
+
+	height: 50px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: #F4F4F4;
+	font-style: italic;
+	font-size: 20px;
+
 }
 
 main {
 
 	background: linear-gradient(#0000AB, #000029);
-	color: white;
+	color: #F4F4F4;
 	border: 1px solid black;
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px black;
@@ -46,16 +115,12 @@ main {
 
 }
 
-.search-container {
+h2 {
 
-	margin-top: 200px;
-	margin-bottom: 200px;
+	margin-top: 300px;
+	margin-bottom: 50px;
 }
 
-.search-description {
-
-	margin-top: 150px;
-}
 
 h2, form {
 
@@ -64,9 +129,9 @@ h2, form {
 
 .movieContainer {
 
-	border: 1px solid white;
+	border: 5px solid white;
 	border-radius: 5px;
-	box-shadow: 5px 5px 5px black;
+
 }
 
 .poster {
@@ -97,16 +162,19 @@ h2, form {
 	text-align: center;
 }
 
-.movieRating {
-
-	height:50px;
-	width: 50px;
-	padding-top: 12px;
-	border: 1px solid black;
-	border-radius: 30px/10px;
-	background-color: gold;
-	text-align: center;
-	color: black;
-	font-weight: 700;
-
+.wa-star-bar-rating,
+.wa-star-bar-rating i {
+display: block;
+height: 50px;
+}
+.wa-star-bar-rating {
+width: 250px;
+-webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 150 150" height="150px" width="150px"><g transform="translate(-25,0)"><path d="m 172.35714,67.190469 -36.77859,35.505441 8.39818,50.4259 -45.132893,-24.00674 -45.362705,23.5696 8.884939,-50.34242 L 25.932197,66.483167 76.55628,59.376583 99.401613,13.644842 121.80408,59.595151 Z" /></g></svg>') repeat-x;
+mask: url('data:image/svg+xml;utf8,<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 150 150" height="150px" width="150px"><g transform="translate(-25,0)"><path d="m 172.35714,67.190469 -36.77859,35.505441 8.39818,50.4259 -45.132893,-24.00674 -45.362705,23.5696 8.884939,-50.34242 L 25.932197,66.483167 76.55628,59.376583 99.401613,13.644842 121.80408,59.595151 Z" /></g></svg>') repeat-x;
+-webkit-mask-size: 50px 50px;
+mask-size: 50px 50px;
+background-color: #aaa;
+}
+.wa-star-bar-rating i {
+background-color: #fe9100;
 }

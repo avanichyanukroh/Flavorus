@@ -3,7 +3,7 @@
     <head>
     	<meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <title>NuMu</title>
+        <title>Flavorus</title>
         <script
          	src="https://code.jquery.com/jquery-3.2.1.min.js"
          	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -15,20 +15,32 @@
     </head>
     <body>
     	<header class="col-12">
-    		<h1>NuMu</h1>
+        <div class="logo-container">
+    		  <h1>Flavorus</h1>
+        </div>
+
+          <nav>
+            <a href="" class="movie-search-toggle">Movies</a>
+            <a href="" class="tv-shows-search-toggle">TV Shows</a>
+          </nav>
+
+        <div class="search-bar-background">
+
+          <form action="#" class="js-search-form row">
+              <label for="js-query" aria-label="user input to search for their favorite movie"></label>
+              <input type="text" autocomplete="off" placeholder="Search for suggested movies similar to..." id="js-query">
+              <button role="button" type="submit" hidden>Search</button>
+          </form>
+
+        </div>
     	</header>
     	<main role="main" class="row">
-        	<h2 class="search-description">Search your favorite movie</h2>
-        	<form action="#" class="js-search-form">
-            	<label for="js-query" aria-label="user input to search for their favorite movie"></label>
-            	<input type="text" id="js-query">
-            	<button role="button" type="submit">Search</button>
-          </form>
+
           
           <div class="suggested-results"></div>
           <div class="js-search-results" aria-live="assertive">
-          
-            
+
+
           </div>
       </main>
       <script src="index.js"></script>
