@@ -123,10 +123,8 @@ function queryToTMDBApi(data) {
 
     });
 
-    console.log(exactMovieTitleList);
-
     renderAssortedMovieList(exactMovieTitleList);
-console.log(resultsLength);
+
     //if results come back empty, this gives user feedback
     if (resultsLength == undefined || resultsLength == 0) {
 
@@ -319,10 +317,8 @@ function filterOnlyExactTitle(data) {
         }
       }
     }
-
   console.log(exactMovieTitleList);
 }
-
 
 $(watchMovieToggle);
 $(watchTvShowsToggle);
