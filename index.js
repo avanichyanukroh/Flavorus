@@ -8,6 +8,8 @@ let moreInfo;
 let exactMovieTitleList = [];
 let exactMovieTitleMap = {};
 let userInputFeedback = "movies";
+let userQuery;
+let resultsLength;
 
 //watch for when Movies tab gets selected to search for only movies.
 function watchMovieToggle() {
@@ -51,51 +53,16 @@ function watchSubmit() {
       TMDBQueryList = 0;
       exactMovieTitleList = [];
       exactMovieTitleMap = {};
+      userQuery = 0;
+      resultsLength = 0;
 
       const userInput = $(this).find('#js-query');
       const query =  userInput.val();
-
-      $(".suggested-results").html(`
-
-          <h2 class="userInputFeedback">Suggested ${userInputFeedback} results similar to "${query}"</h2>
-
-        `);
+      userQuery = query;
 
       userInput.val("");
       getDataFromTasteDiveApi(query, queryToTMDBApi);
       });
-}
-
-//watch for when More Info gets click to bring up wikipedia info
-function watchMoreInfo() {
-  $('.moreInfo').click(function() {
-    event.preventDefault();
-
-    $(this).css("background", "#F4F4F4");
-    $('.tv-shows-search-toggle').css("background", "lightgray");
-
-    $('#js-query').attr("placeholder", "Search for suggested movies similar to...");
-    userInputFeedback = "movies";
-    TASTEDIVE_SEARCH_URL = 'https://tastedive.com/api/similar?k=303566-Numu-0SMN2P46&info=1&q=movie:';
-    TMDB_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=bd392b20bbcc4afe8b0b8e5db2dc7e99';
-
-  });
-}
-
-//watch for when Movies tab gets selected to search for only movies.
-function watchTrailer() {
-  $('.trailer').click(function() {
-    event.preventDefault();
-
-    $(this).css("background", "#F4F4F4");
-    $('.tv-shows-search-toggle').css("background", "lightgray");
-
-    $('#js-query').attr("placeholder", "Search for suggested movies similar to...");
-    userInputFeedback = "movies";
-    TASTEDIVE_SEARCH_URL = 'https://tastedive.com/api/similar?k=303566-Numu-0SMN2P46&info=1&q=movie:';
-    TMDB_SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=bd392b20bbcc4afe8b0b8e5db2dc7e99';
-
-  });
 }
 
 //-------------------------------------------------------------------------------------------------------
@@ -159,6 +126,26 @@ function queryToTMDBApi(data) {
     console.log(exactMovieTitleList);
 
     renderAssortedMovieList(exactMovieTitleList);
+console.log(resultsLength);
+    //if results come back empty, this gives user feedback
+    if (resultsLength == undefined || resultsLength == 0) {
+
+      $(".suggested-results").html(`
+
+          <h2 class="userInputFeedback">Could not find suggested ${userInputFeedback} result with the title "${userQuery}". Please try again.</h2>
+
+        `);
+
+    }
+
+    //else return length, search type, and their query.
+    else {
+      $(".suggested-results").html(`
+
+      <h2 class="userInputFeedback">Total of "${resultsLength}" suggested ${userInputFeedback} to watch similar to "${userQuery}".</h2>
+
+    `);
+    }
   
   }, 1000);
 
@@ -177,79 +164,53 @@ function renderAssortedMovieList(results) {
     if (userInputFeedback == "movies") {
       $(".js-search-results").append(
         `
-        <div class="movieContainer row">
-          <div class="movieOverview">
-            <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].title}" class="poster col-3">
-            <div class="movieContentContainer col-9">
-              <h3 class="movieTitle">${results[i].title}</h3>
-              <p class="movieReleaseDate">${results[i].release_date}</p>
-
-              <p>${results[i].flavorus_rating}% Flavorus Rating</p>
-              <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
-
-              <p class="overviewDescription">Overview</p>
-              <p class="movieOverview">${results[i].overview}</p>
-
-              <div class="moreInfoContainer">
-                <a href="" class="moreInfo">More Info</a>
-                <a href="" class="trailer">Trailer</a>
-              </div>
-
-          <div class="wikipediaInfoPage" display="none">
+      <div class="movieContainer row">
+        <div class="movieOverviewPage">
+        <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].title}" class="poster col-3">
+          <div class="movieContentContainer col-9">
             <h3 class="movieTitle">${results[i].title}</h3>
-            <p>${results[i].wTeaser}</p>
-            <a href="${results[i].wUrl}" class ="moreInfo">Read more</a>
-            <a href="" class ="backToOverview">Overview</a>
-          </div>
+            <p class="movieReleaseDate">${results[i].release_date}</p>
 
-          <div class="trailerPage" display="none">
-            <h3 class="movieTitle">${results[i].title}</h3>
+            <p>${results[i].flavorus_rating}% Flavorus Rating</p>
+            <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
 
-            <a href="" class ="moreInfo">More Info</a>
-            <a href="" class ="backToOverview">Overview</a>
+            <p class="overviewDescription">Overview</p>
+            <p class="movieOverview">${results[i].overview}</p>
+
+            <div class="moreInfoContainer">
+              <a href="${results[i].wUrl}" target="_blank" class="moreInfo">More Info</a>
+              <a href="${results[i].yUrl}" target="_blank" class="trailer">Trailer</a>
+            </div>
           </div>
         </div>
-        `
+      </div>
+              `
       );
     }
     else if (userInputFeedback == "tv shows") {
-            $(".js-search-results").append(
+      $(".js-search-results").append(
         `
-        <div class="movieContainer row">
-          <div class="movieOverview">
-            <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].name}" class="poster col-3">
-            <div class="movieContentContainer col-9">
-              <h3 class="movieTitle">${results[i].name}</h3>
-              <p class="movieReleaseDate">${results[i].first_air_date}</p>
+      <div class="movieContainer row">
+        <div class="movieOverviewPage">
+        <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].name}" class="poster col-3">
+          <div class="movieContentContainer col-9">
+            <h3 class="movieTitle">${results[i].name}</h3>
+            <p class="movieReleaseDate">${results[i].first_air_date}</p>
 
-              <p>${results[i].flavorus_rating}% Flavorus Rating</p>
-              <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
+            <p>${results[i].flavorus_rating}% Flavorus Rating</p>
+            <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
 
-              <p class="overviewDescription">Overview</p>
-              <p class="movieOverview">${results[i].overview}</p>
+            <p class="overviewDescription">Overview</p>
+            <p class="movieOverview">${results[i].overview}</p>
 
-              <div class="moreInfoContainer">
-                <a href="" class="moreInfo">More Info</a>
-                <a href="" class="trailer">Trailer</a>
-              </div>
-
+            <div class="moreInfoContainer">
+              <a href="${results[i].wUrl}" target="_blank" class="moreInfo">More Info</a>
+              <a href="${results[i].yUrl}" target="_blank" class="trailer">Trailer</a>
             </div>
-          </div>
 
-          <div class="wikipediaInfoPage" display="none">
-            <h3 class="movieTitle">${results[i].name}</h3>
-            <p>${results[i].wTeaser}</p>
-            <a href="${results[i].wUrl}" class ="moreInfo">Read more</a>
-            <a href="" class ="backToOverview">Overview</a>
-          </div>
-
-          <div class="trailerPage" display="none">
-            <h3 class="movieTitle">${results[i].name}</h3>
-
-            <a href="" class ="moreInfo">More Info</a>
-            <a href="" class ="backToOverview">Overview</a>
           </div>
         </div>
+      </div>
         `
       );
     }
@@ -277,6 +238,9 @@ function getDataFromTMDBApi(searchTerm, callback) {
 
 //takes the results from the TMDB get request and only keep the ones with exact query title
 function filterOnlyExactTitle(data) {
+
+  //sends results length to global variable to return user feedback.
+  resultsLength = data.results.length;
 
   if (userInputFeedback == "movies") {
 
@@ -363,4 +327,3 @@ function filterOnlyExactTitle(data) {
 $(watchMovieToggle);
 $(watchTvShowsToggle);
 $(watchSubmit);
-

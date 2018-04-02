@@ -181,13 +181,28 @@ background-color: #fe9100;
 
 }
 
-.moreInfo, .trailer {
+.moreInfo, .trailer, .backToOverview {
 
 	text-decoration: none;
 	color: #FEDB3A;
 	margin-right: 15px;
 }
 
-.moreInfo:hover, .trailer:hover { 
+.moreInfo:hover, .trailer:hover, .backToOverview:hover, { 
     color: #C5A200;
+}
+
+.movieOverviewPage {
+
+
+}
+
+.wikipediaInfoPage {
+
+	display: none;
+}
+
+.trailerPage {
+
+	display:none;
 }
