@@ -289,7 +289,7 @@ function filterOnlyExactTitle(data) {
                   vote_average: data.results[k].vote_average * 10,
                   popularity: data.results[k].popularity,
                   overview: data.results[k].overview,
-                  flavorus_rating: Math.ceil(((100 - (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2)) * .25) + 
+                  flavorus_rating: Math.ceil(((100 - (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2)) * .5) + 
                                   (((data.results[k].vote_average * 10) + data.results[k].popularity) / 2))
 
                 };

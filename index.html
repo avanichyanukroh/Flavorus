@@ -14,12 +14,14 @@
         <link href="float-grid.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-    	<header class="col-12">
+    	<header role="banner" class="col-12">
         <div class="logo-container">
-    		  <h1>Flavorus</h1>
+          <a href="https://avanichyanukroh.github.io/Flavorus/">
+    		    <h1>Flavorus</h1>
+          </a>
         </div>
 
-          <nav>
+          <nav role="navigation">
             <a href="" class="movie-search-toggle">Movies</a>
             <a href="" class="tv-shows-search-toggle">TV Shows</a>
           </nav>
@@ -34,13 +36,25 @@
 
         </div>
     	</header>
-    	<main role="main" class="row">
+    	<main role="main" class="row" aria-live="polite">
          
           <div class="suggested-results"></div>
-          <div class="js-search-results" aria-live="assertive">
+          <div class="js-search-results">
+
+            <div class="introductionContainer">
+
+              <h2>Welcome to Flavorus!</h2>
+              <p class="introduction">Our application will take a movie/tv show you love and provide a list of suggested movies/tv shows based on the Tastedive community, current popularity, and TMDB ratings.</p>
+
+            </div>
 
           </div>
       </main>
+      <footer role="contentinfo">
+        <div class="TMDBLogoContainer">
+          <img src="https://www.themoviedb.org/static_cache/v4/logos/408x161-powered-by-rectangle-green-bb4301c10ddc749b4e79463811a68afebeae66ef43d17bcfd8ff0e60ded7ce99.png" alt="the movie database brand logo" class="TMDBLogo">
+        </div>
+      </footer>
       <script src="index.js"></script>
     </body>
 </html>
