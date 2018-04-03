@@ -151,7 +151,8 @@ function queryToTMDBApi(data) {
 
 
 function renderAssortedMovieList(results) {
-
+console.log(results);
+console.log(moreInfo);
   for (let i = 0; i < results.length; i ++) {
 
     if (results[i].flavorus_rating > 100) {
@@ -308,7 +309,7 @@ function filterOnlyExactTitle(data) {
 
       for (let i = 0; i < moreInfo.length; i ++) {
 
-        if (exactMovieTitleList[k].title == moreInfo[i].Name) {
+        if (exactMovieTitleList[k].title == moreInfo[i].Name || exactMovieTitleList[k].name == moreInfo[i].Name) {
 
           exactMovieTitleList[k].wTeaser = moreInfo[i].wTeaser;
           exactMovieTitleList[k].wUrl = moreInfo[i].wUrl;
