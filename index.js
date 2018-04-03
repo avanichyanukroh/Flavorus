@@ -145,14 +145,13 @@ function queryToTMDBApi(data) {
     `);
     }
   
-  }, 1000);
+  }, 2000);
 
 }
 
 
 function renderAssortedMovieList(results) {
-console.log(results);
-console.log(moreInfo);
+
   for (let i = 0; i < results.length; i ++) {
 
     if (results[i].flavorus_rating > 100) {
@@ -214,6 +213,9 @@ console.log(moreInfo);
       );
     }
   }
+
+  //sends results length to global variable to return user feedback.
+  resultsLength = results.length;
 }
 
 //---------------------------------------------------------------------------------------------------------
@@ -237,9 +239,6 @@ function getDataFromTMDBApi(searchTerm, callback) {
 
 //takes the results from the TMDB get request and only keep the ones with exact query title
 function filterOnlyExactTitle(data) {
-
-  //sends results length to global variable to return user feedback.
-  resultsLength = data.results.length;
 
   if (userInputFeedback == "movies") {
 
@@ -305,6 +304,7 @@ function filterOnlyExactTitle(data) {
     }
   }
 
+//add more info acquired from tastedive api and adds it into the new object created.
     for (let k = 0; k < exactMovieTitleList.length; k ++) {
 
       for (let i = 0; i < moreInfo.length; i ++) {
@@ -318,7 +318,6 @@ function filterOnlyExactTitle(data) {
         }
       }
     }
-  console.log(exactMovieTitleList);
 }
 
 $(watchMovieToggle);
