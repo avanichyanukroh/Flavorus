@@ -3,7 +3,7 @@
 html {
 
 	height: 100%;
-	font-family: 'Open Sans', sans-serif;
+/*	font-family: 'Open Sans', sans-serif;*/
 }
 
 body {
@@ -16,7 +16,7 @@ background-image: url("https://www.transparenttextures.com/patterns/office.png")
 
 header {
 
-	background: linear-gradient(#5779C0, #C55700);
+	background: black;
 	text-align: center;
 	color: white;
 	border: 1px solid black;
@@ -37,10 +37,13 @@ header {
 
 h1 {
 
+	font-family: 'Knewave', cursive;
 	display: inline-block;
 	font-size: 40px;
-	color: #FFD200;
-	font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+	letter-spacing: 7px;
+/*	color: #FFD200;*/
+	color: #FE4330;
+/*	font-family: Futura, "Trebuchet MS", Arial, sans-serif; */
 	text-transform: uppercase;
 }
 
