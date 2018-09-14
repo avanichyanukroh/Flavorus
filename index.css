@@ -1,68 +1,51 @@
-
-
-html {
-
-	height: 100%;
-/*	font-family: 'Open Sans', sans-serif;*/
-}
-
 body {
-
-	background-color: #000000;
-background-image: url("https://www.transparenttextures.com/patterns/office.png");
+	font-family: 'Karla', sans-serif;
+	background-color: #4C495C;
+	background-image: url("https://www.transparenttextures.com/patterns/office.png");
 	height: auto;
-
 }
 
 header {
-
-	background: black;
+	background: #2D285C;
 	text-align: center;
 	color: white;
 	border: 1px solid black;
 	border-radius: 5px;
-	box-shadow: 2px 2px 2px black;
+	box-shadow: 2px 4px 15px black;
 }
 
 .logo-container {
-
 	display: block;
-	border: 5px solid #FFD200;
+	border: 5px solid #D0D7E1;
 	width: 300px;
 	background: black;
 	margin: 40px auto;
 	border-radius: 20px;
-	box-shadow: 5px 5px 5px black;
+	box-shadow: 3px 5px 15px black;
 }
 
 h1 {
-
 	font-family: 'Knewave', cursive;
 	display: inline-block;
 	font-size: 40px;
 	letter-spacing: 7px;
-/*	color: #FFD200;*/
-	color: #FE4330;
-/*	font-family: Futura, "Trebuchet MS", Arial, sans-serif; */
+	color: #AC29FF;
 	text-transform: uppercase;
 }
 
 h1:hover {
-
 	color: #cca700;
 }
 
 .search-bar-background {
-
 	height: 50px;
 	width: 100%;
-	background: white;
+	background: #D0D7E1;
 	margin: 0;
 	padding: 0;
 }
 
 nav {
-
 	display: inline;
 	color: black;
 	margin-right: 750px;
@@ -71,17 +54,14 @@ nav {
 }
 
 .movie-search-toggle {
-
-	background: white;
+	background: #D0D7E1;
 }
 
 .tv-shows-search-toggle {
-
-	background: lightgray;
+	background: #9ca1a8;
 }
 
 .movie-search-toggle, .tv-shows-search-toggle {
-
 	border: 3px solid black;
 	border-bottom: none;
 	border-radius: 10px;
@@ -91,67 +71,55 @@ nav {
 }
 
 .movie-search-toggle:hover, .tv-shows-search-toggle:hover { 
-    background-color: darkgray;
+    background: #7b8eaa !important;
 }
 
-
-
 #js-query {
-
 	height: 50px;
 	width: 100%;
 	margin: 0;
 	padding: 0;
 	border: none;
-	background: white;
+	background: #D0D7E1;
 	font-style: italic;
 	font-size: 20px;
-
 }
 
 main {
-
-	background: linear-gradient(#082667, #082667);
+	background: #2C3873;
 	color: white;
 	border: 1px solid black;
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px black;
 	margin-top: 100px;
-	height: auto;
+	min-height: 800px;
 	padding-left: 20px;
   	padding-right: 20px;
-
 }
 
 .introduction {
-
 	margin: 50px;
 	line-height: 1.5;
-
-
 }
 
 h2 {
-
 	margin-top: 300px;
 	margin-bottom: 50px;
 }
 
 
 h2, form {
-
 	text-align: center;
 }
 
 .movieContainer {
-
-	border: 5px solid white;
+	background: rgb(0, 0, 0, 0.2);
+	border: 5px solid #D0D7E1;
 	border-radius: 5px;
-
+	margin-bottom: 25px !important;
 }
 
 .poster {
-
 	display: inline-block;
 	height: auto;
 	margin: 0;
@@ -159,46 +127,48 @@ h2, form {
 }
 
 .movieContentContainer {
-
 	display: inline-block;
+	height: 100%;
 	vertical-align: top;
 	padding-left: 15px;
 	padding-right: 15px;
 	margin: 0px;
-	
 }
 
 .movieTitle, .movieReleaseDate, .overviewDescription {
-
 	text-align: center;
 }
 
 .wa-star-bar-rating,
 .wa-star-bar-rating i {
-display: block;
-height: 30px;
+	display: block;
+	height: 30px;
 }
+
 .wa-star-bar-rating {
-width: 150px;
--webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 150 150" height="150px" width="150px"><g transform="translate(-25,0)"><path d="m 172.35714,67.190469 -36.77859,35.505441 8.39818,50.4259 -45.132893,-24.00674 -45.362705,23.5696 8.884939,-50.34242 L 25.932197,66.483167 76.55628,59.376583 99.401613,13.644842 121.80408,59.595151 Z" /></g></svg>') repeat-x;
-mask: url('data:image/svg+xml;utf8,<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 150 150" height="150px" width="150px"><g transform="translate(-25,0)"><path d="m 172.35714,67.190469 -36.77859,35.505441 8.39818,50.4259 -45.132893,-24.00674 -45.362705,23.5696 8.884939,-50.34242 L 25.932197,66.483167 76.55628,59.376583 99.401613,13.644842 121.80408,59.595151 Z" /></g></svg>') repeat-x;
--webkit-mask-size: 30px 30px;
-mask-size: 30px 30px;
-background-color: #aaa;
+	width: 150px;
+	-webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 150 150" height="150px" width="150px"><g transform="translate(-25,0)"><path d="m 172.35714,67.190469 -36.77859,35.505441 8.39818,50.4259 -45.132893,-24.00674 -45.362705,23.5696 8.884939,-50.34242 L 25.932197,66.483167 76.55628,59.376583 99.401613,13.644842 121.80408,59.595151 Z" /></g></svg>') repeat-x;
+	mask: url('data:image/svg+xml;utf8,<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 150 150" height="150px" width="150px"><g transform="translate(-25,0)"><path d="m 172.35714,67.190469 -36.77859,35.505441 8.39818,50.4259 -45.132893,-24.00674 -45.362705,23.5696 8.884939,-50.34242 L 25.932197,66.483167 76.55628,59.376583 99.401613,13.644842 121.80408,59.595151 Z" /></g></svg>') repeat-x;
+	-webkit-mask-size: 30px 30px;
+	mask-size: 30px 30px;
+	background-color: #aaa;
 }
+
 .wa-star-bar-rating i {
-background-color: #fe9100;
+	background-color: #fe9100;
 }
 
 .moreInfoContainer {
-
 	text-align: center;
 	margin-top: 15px;
+}
 
+.movieOverview {
+	height: 100px;
+	overflow: auto;
 }
 
 .moreInfo, .trailer, .backToOverview {
-
 	text-decoration: none;
 	color: #FEDB3A;
 	margin-right: 15px;
@@ -209,23 +179,26 @@ background-color: #fe9100;
 }
 
 .movieOverviewPage {
-
-
 }
 
 .wikipediaInfoPage {
-
 	display: none;
 }
 
 .trailerPage {
-
 	display:none;
 }
 
-.TMDBLogo {
+footer	{
+	color: white;
+	border: 1px solid black;
+	background-color: #2D285C;
+	z-index: 1;
+	height: 45px;
+}
 
-	height: 50px;
+.TMDBLogo {
+	height: auto;
 	width: auto;
 	position: relative;
 	float: right;

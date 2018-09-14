@@ -16,8 +16,8 @@ function watchMovieToggle() {
   $('.movie-search-toggle').click(function() {
     event.preventDefault();
 
-    $(this).css("background", "#F4F4F4");
-    $('.tv-shows-search-toggle').css("background", "lightgray");
+    $(this).css("background", "#D0D7E1");
+    $('.tv-shows-search-toggle').css("background", "#9ca1a8");
 
     $('#js-query').attr("placeholder", "Search for suggested movies similar to...");
     userInputFeedback = "movies";
@@ -32,8 +32,8 @@ function watchTvShowsToggle() {
   $('.tv-shows-search-toggle').click(function() {
     event.preventDefault();
 
-    $(this).css("background", "#F4F4F4");
-    $('.movie-search-toggle').css("background", "lightgray");
+    $(this).css("background", "#D0D7E1");
+    $('.movie-search-toggle').css("background", "#9ca1a8");
 
     $('#js-query').attr("placeholder", "Search for suggested tv shows similar to...");
     userInputFeedback = "tv shows";
@@ -64,6 +64,12 @@ function watchSubmit() {
       getDataFromTasteDiveApi(query, queryToTMDBApi);
       });
 }
+
+// function watchReadMore() {
+//   $('').click(function() {
+
+//       });
+// }
 
 //-------------------------------------------------------------------------------------------------------
 //tastedive api ajax request
@@ -161,7 +167,7 @@ function renderAssortedMovieList(results) {
 
     if (userInputFeedback == "movies") {
       $(".js-search-results").append(
-        `
+      `
       <div class="movieContainer row">
         <div class="movieOverviewPage">
         <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].title}" class="poster col-3">
@@ -182,12 +188,12 @@ function renderAssortedMovieList(results) {
           </div>
         </div>
       </div>
-              `
+      `
       );
     }
     else if (userInputFeedback == "tv shows") {
       $(".js-search-results").append(
-        `
+      `
       <div class="movieContainer row">
         <div class="movieOverviewPage">
         <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].name}" class="poster col-3">
@@ -209,7 +215,7 @@ function renderAssortedMovieList(results) {
           </div>
         </div>
       </div>
-        `
+      `
       );
     }
   }
