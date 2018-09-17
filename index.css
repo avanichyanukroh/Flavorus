@@ -1,8 +1,11 @@
 body {
 	font-family: 'Karla', sans-serif;
-	background-color: #4C495C;
+	background-color: #625AA8;
 	background-image: url("https://www.transparenttextures.com/patterns/office.png");
-	height: auto;
+}
+
+p {
+	margin: 0;
 }
 
 header {
@@ -29,12 +32,14 @@ h1 {
 	display: inline-block;
 	font-size: 40px;
 	letter-spacing: 7px;
-	color: #AC29FF;
+	color: #E5CC3D;
 	text-transform: uppercase;
 }
 
 h1:hover {
 	color: #cca700;
+	transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+	-webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .search-bar-background {
@@ -68,6 +73,8 @@ nav {
 	padding: 10px;
 	text-decoration: none;
 	color: black;
+	transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+	-webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .movie-search-toggle:hover, .tv-shows-search-toggle:hover { 
@@ -92,9 +99,8 @@ main {
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px black;
 	margin-top: 100px;
-	min-height: 800px;
-	padding-left: 20px;
-  	padding-right: 20px;
+	min-height: 1000px;
+	padding: 0 2%;
 }
 
 .introduction {
@@ -117,18 +123,20 @@ h2, form {
 	border: 5px solid #D0D7E1;
 	border-radius: 5px;
 	margin-bottom: 25px !important;
+
 }
 
 .poster {
 	display: inline-block;
-	height: auto;
+	height: 350px;
+	width: auto;
 	margin: 0;
 	padding: 0;
 }
 
 .movieContentContainer {
 	display: inline-block;
-	height: 100%;
+	height: 350px;
 	vertical-align: top;
 	padding-left: 15px;
 	padding-right: 15px;
@@ -139,9 +147,13 @@ h2, form {
 	text-align: center;
 }
 
+.overviewDescription {
+	margin-bottom: 10px;
+}
+
 .wa-star-bar-rating,
 .wa-star-bar-rating i {
-	display: block;
+	display: inline-block;
 	height: 30px;
 }
 
@@ -160,25 +172,23 @@ h2, form {
 
 .moreInfoContainer {
 	text-align: center;
-	margin-top: 15px;
 }
 
 .movieOverview {
-	height: 100px;
+	height: 171px;
 	overflow: auto;
 }
 
 .moreInfo, .trailer, .backToOverview {
 	text-decoration: none;
-	color: #FEDB3A;
+	color: #E5CC3D;
 	margin-right: 15px;
+	transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+	-webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.moreInfo:hover, .trailer:hover, .backToOverview:hover, { 
-    color: #C5A200;
-}
-
-.movieOverviewPage {
+.moreInfo:hover, .trailer:hover, .backToOverview:hover { 
+    color: #cca700;
 }
 
 .wikipediaInfoPage {
@@ -186,7 +196,7 @@ h2, form {
 }
 
 .trailerPage {
-	display:none;
+	display: none;
 }
 
 footer	{
@@ -195,14 +205,51 @@ footer	{
 	background-color: #2D285C;
 	z-index: 1;
 	height: 45px;
+	vertical-align: middle;
+}
+
+.footer-container {
+	vertical-align: center;
+	height: 45px;
+	padding: 10px;
+}
+
+.copy-right {
+	display: inline-block;
 }
 
 .TMDBLogo {
-	height: auto;
+	display: inline-block;
+	height: 30px;
 	width: auto;
-	position: relative;
 	float: right;
-	bottom: 0;
-	right: 0;
-	margin: 10px;
+}
+
+@media only screen and (max-width: 640px) {
+
+	.poster {
+		height: auto;
+		width: 100%;
+	}
+
+	.movieContentContainer {
+		height: 415.5px;
+	}
+
+	.ratingTitle {
+		text-align: center !important;
+		margin-top: 20px;
+	}
+
+	.rating-star-container {
+		text-align: center !important;
+		margin-bottom: 20px;
+	}
+
+	.moreInfoContainer {
+		margin-top: 20px;
+	}
+
+
+
 }

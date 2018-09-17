@@ -160,6 +160,30 @@ function renderAssortedMovieList(results) {
 
   for (let i = 0; i < results.length; i ++) {
 
+    let modifiedMonth;
+    if (results[i].release_date.slice(5, 6) === '0') {
+      modifiedMonth = results[i].release_date.slice(6, 7);
+    }
+    else {
+      modifiedMonth = results[i].release_date.slice(5, 7);
+    }
+    const monthConverter = {
+      01: 'January',
+      02: 'February',
+      03: 'March',
+      04: 'April',
+      05: 'May',
+      06: 'June',
+      07: 'July',
+      08: 'August',
+      09: 'September',
+      10: 'October',
+      11: 'November',
+      12: 'December'
+    }
+
+    let modifiedReleaseDate = monthConverter[modifiedMonth] + ' ' + results[i].release_date.slice(8, 10) + ', ' + results[i].release_date.slice(0, 4);;
+    console.log(modifiedReleaseDate);
     if (results[i].flavorus_rating > 100) {
 
         results[i].flavorus_rating = 100
@@ -173,11 +197,12 @@ function renderAssortedMovieList(results) {
         <img src="https://image.tmdb.org/t/p/w500/${results[i].poster_path}" alt="poster for the movie titled ${results[i].title}" class="poster col-3">
           <div class="movieContentContainer col-9">
             <h3 class="movieTitle">${results[i].title}</h3>
-            <p class="movieReleaseDate">${results[i].release_date}</p>
+            <p class="movieReleaseDate">${modifiedReleaseDate}</p>
 
-            <p>${results[i].flavorus_rating}% Flavorus Rating</p>
-            <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
-
+            <p class="ratingTitle">${results[i].flavorus_rating}% Flavorus Rating</p>
+            <div class="rating-star-container">
+              <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
+            </div>
             <p class="overviewDescription">Overview</p>
             <p class="movieOverview">${results[i].overview}</p>
 
@@ -201,9 +226,10 @@ function renderAssortedMovieList(results) {
             <h3 class="movieTitle">${results[i].name}</h3>
             <p class="movieReleaseDate">${results[i].first_air_date}</p>
 
-            <p>${results[i].flavorus_rating}% Flavorus Rating</p>
-            <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
-
+            <p class="ratingTitle">${results[i].flavorus_rating}% Flavorus Rating</p>
+            <div class="rating-star-container">
+              <div class="wa-star-bar-rating"><i style="width: ${results[i].flavorus_rating}%"></i></div>
+            </div>
             <p class="overviewDescription">Overview</p>
             <p class="movieOverview">${results[i].overview}</p>
 
